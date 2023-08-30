@@ -21,14 +21,14 @@ def update(capital,posicao,precoOntem,precoHoje,ultimoDia):
 
     return capital,posicao,precoHoje
 
-def compra(capital,posicao,precoHoje,quantidade):
-    posicao += quantidade 
-    capital += quantidade * precoHoje - 0.02 # preço de hoje - slippage
+def compra(capital,posicao,precoHoje,volume):
+    posicao += volume 
+    capital += volume * precoHoje - 0.02 # preço de hoje - slippage
     return capital,posicao,precoHoje
 
-def venda(capital,posicao,precoHoje, quantidade):
-    posicao -= quantidade
-    capital -= quantidade * precoHoje + 0.02 # preço de hoje + slippage
+def venda(capital,posicao,precoHoje, volume):
+    posicao -= volume
+    capital -= volume * precoHoje + 0.02 # preço de hoje + slippage
     return capital,posicao,precoHoje
 
 def finish(data):
