@@ -33,11 +33,17 @@ def updateMeidaMovel(capital,posicao,precoHoje,mediaLonga,mediaCurta,primeiroUlt
             capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 2)
         elif mediaLonga <= mediaCurta and posicao < 1:
             capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 2)
-    elif primeiroUltimoDia is True  and mediaLonga != None:
-        if mediaLonga >= mediaCurta: 
+    elif primeiroUltimoDia is True and mediaLonga != None:
+        if posicao > 0: 
             capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 1)
-        elif mediaLonga <= mediaCurta:
+        elif posicao < 0:
             capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 1)
+        elif posicao == 0:
+            if mediaLonga >= mediaCurta:
+                capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 1)
+            elif mediaLonga <= mediaCurta:
+                capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 1)
+
     return capital, posicao
 
 def compra(capital, posicao, precoHoje, volume):
@@ -72,13 +78,14 @@ def main():
     for indice, hoje in base.iterrows():
         #start(hoje['Date'])
         #capital, posicao, precoOntem = updateBase(capital, posicao, precoOntem, hoje['Close'],base.index[-1] == indice or base.index[1] == indice)
-        capital, posicao = updateMeidaMovel(capital, posicao, hoje['Close'],hoje['MediaMovelLonga'],hoje['MediaMovelCurta'],base.index[-1] == indice or base.index[1] == indice)
+        capital, posicao = updateMeidaMovel(capital, posicao, hoje['Close'],hoje['MediaMovelLonga'],hoje['MediaMovelCurta'],base.index[-1] == indice or base.index[20] == indice)
         riqueza_atual = capital - posicao * hoje["Close"]
         fechamentos.append(hoje["Close"])
         riqueza.append(float(riqueza_atual))
         #finish(hoje['Date'])
         print(f'Capital: {capital}\tAções em posse: {posicao}\tRiqueza: {riqueza_atual}')
 
+    print(f'Capital: {capital}\tAções em posse: {posicao}\tRiqueza: {riqueza_atual}')
     # Agora, vamos criar um gráfico com os valores de fechamento e a riqueza
     plt.figure(figsize=(12, 6))
     plt.plot(fechamentos, label='Fechamento', marker='')
