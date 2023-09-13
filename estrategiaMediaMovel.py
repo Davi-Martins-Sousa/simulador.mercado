@@ -1,15 +1,15 @@
-from base import create,start,finish,compra,venda
+from estrategia import create,start,finish,compra,venda
 
 def update(capital,posicao,precoHoje,mediaLonga,mediaCurta,primeiroUltimoDia):
     if primeiroUltimoDia is False and mediaLonga != None:
-        if mediaLonga >= mediaCurta and posicao > -1:
+        if mediaLonga >= mediaCurta and posicao == 1:
             capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 2)
-        elif mediaLonga <= mediaCurta and posicao < 1:
+        elif mediaLonga <= mediaCurta and posicao == -1:
             capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 2)
     elif primeiroUltimoDia is True and mediaLonga != None:
-        if posicao > 0: 
+        if posicao == 1:
             capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 1)
-        elif posicao < 0:
+        elif posicao == -1:
             capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 1)
         elif posicao == 0:
             if mediaLonga >= mediaCurta:
@@ -36,7 +36,7 @@ def mediaMovel(base):
     for indice, hoje in base.iterrows():
         #start(hoje['Date'])
         capital, posicao = update(capital, posicao, hoje['Close'],hoje['MediaMovelLonga'],hoje['MediaMovelCurta'],base.index[-1] == indice or base.index[20] == indice)
-        riquezaAtual = capital - posicao * hoje["Close"]
+        riquezaAtual = capital + posicao * hoje["Close"]
         fechamentos.append(hoje["Close"])
         riqueza.append(float(riquezaAtual))
         #finish(hoje['Date'])

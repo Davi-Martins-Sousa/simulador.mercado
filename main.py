@@ -1,10 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from base import base
-from mediaMovel import mediaMovel
+from estrategiaBase import base
+from estrategiaMediaMovel import mediaMovel
 
 def main():
-    fechamentos,riqueza = base('dados/PETR3.SA.csv')
+    fechamentos,riqueza = mediaMovel('dados/BBDC4.csv')
     #fechamentos,riqueza = mediaMovel('dados/PETR3.SA.csv')
     plt.figure(figsize=(12, 6))
     plt.plot(fechamentos, label='Fechamento', marker='')
