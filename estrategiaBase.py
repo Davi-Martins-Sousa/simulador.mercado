@@ -1,4 +1,3 @@
-import pandas as pd
 from estrategia import create,start,finish,compra,venda
 
 def update(capital, posicao, precoOntem, precoHoje, primeiroUltimoDia):
