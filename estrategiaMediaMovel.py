@@ -3,19 +3,19 @@ from estrategia import create,start,finish,compra,venda
 def update(capital,posicao,precoHoje,mediaLonga,mediaCurta,primeiroUltimoDia):
     if primeiroUltimoDia is False and mediaLonga != None:
         if mediaLonga >= mediaCurta and posicao == 1:
-            capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 2)
+            capital, posicao = venda(capital, posicao, precoHoje, 2)
         elif mediaLonga <= mediaCurta and posicao == -1:
-            capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 2)
+            capital, posicao = compra(capital, posicao, precoHoje, 2)
     elif primeiroUltimoDia is True and mediaLonga != None:
         if posicao == 1:
-            capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 1)
+            capital, posicao = venda(capital, posicao, precoHoje, 1)
         elif posicao == -1:
-            capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 1)
+            capital, posicao = compra(capital, posicao, precoHoje, 1)
         elif posicao == 0:
             if mediaLonga >= mediaCurta:
-                capital, posicao, precoHoje = venda(capital, posicao, precoHoje, 1)
+                capital, posicao = venda(capital, posicao, precoHoje, 1)
             elif mediaLonga <= mediaCurta:
-                capital, posicao, precoHoje = compra(capital, posicao, precoHoje, 1)
+                capital, posicao = compra(capital, posicao, precoHoje, 1)
 
     return capital, posicao
 

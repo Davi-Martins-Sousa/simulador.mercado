@@ -16,9 +16,9 @@ def finish(data):
 def compra(capital, posicao, precoHoje, volume):
     posicao += volume
     capital -= volume * precoHoje - 0.00  # preço de hoje - slippage
-    return capital, posicao, precoHoje
+    return capital, posicao
 
 def venda(capital, posicao, precoHoje, volume):
     posicao -= volume
     capital += volume * precoHoje + 0.00  # preço de hoje + slippage
-    return capital, posicao, precoHoje
+    return capital, posicao
