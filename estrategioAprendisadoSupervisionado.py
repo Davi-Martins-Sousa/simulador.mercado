@@ -53,10 +53,7 @@ def aprendizadoSupervisionado(base_path):
     riqueza = []
 
     for indice, hoje in base.iloc[int(0.8 * len(base))+31:].iterrows():
-        #print(previsao[indice-int(0.8 * len(base))-31])
-        print(hoje['Close'])
         capital, posicao = update(capital, posicao, hoje['Close'], previsao[indice-int(0.8 * len(base))-32],base.index[-1] == indice)
-
         riquezaAtual = capital + posicao * hoje["Close"]
         fechamentos.append(hoje["Close"])
         riqueza.append(float(riquezaAtual))
