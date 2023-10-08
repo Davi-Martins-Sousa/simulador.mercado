@@ -20,7 +20,7 @@ def update(capital,posicao,precoHoje,decisao,ultimoDia):
 
 def aprendizadoSupervisionado(base_path, ano_inicio = '1/3/2022', janela = False, tamanho_janela = 22):
 
-    if os.path.exists('./dados/{}-indicadores.csv'.format(base_path)):
+    if os.path.exists('./dados/{}-indicadores.csv----'.format(base_path)):
         base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))
     else:
         base = pd.read_csv('./dados/{}.csv'.format(base_path))
@@ -139,7 +139,7 @@ def aprendizadoSupervisionado(base_path, ano_inicio = '1/3/2022', janela = False
         riqueza.append(float(riquezaAtual))
         preco = hoje['Close']
 
-    print(f'Capital: {capital}\tAções em posse: {posicao}\tPreço: {preco}\tRiqueza: {riquezaAtual}')
+    print(f'Capital: {round(capital, 2)}\tAções em posse: {posicao}\tPreço: {round(preco, 2)}\tRiqueza: {round(riquezaAtual, 2)}')
         
     return fechamentos, riqueza
 
