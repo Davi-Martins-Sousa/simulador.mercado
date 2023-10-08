@@ -40,7 +40,8 @@ def mediaMovel(base):
         fechamentos.append(hoje["Close"])
         riqueza.append(float(riquezaAtual))
         #finish(hoje['Date'])
-        print(f'Capital: {capital}\tAções em posse: {posicao}\tRiqueza: {riquezaAtual}')
+        preco = hoje['Close']
+        print(f'Capital: {capital}\tAções em posse: {posicao}\tPreço: {preco}\tRiqueza: {riquezaAtual}')
 
     return fechamentos,riqueza
 

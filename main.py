@@ -5,7 +5,7 @@ from estrategiaMediaMovel import mediaMovel
 from estrategioAprendisadoSupervisionado import aprendizadoSupervisionado
 
 def main():
-    fechamentos,riqueza = aprendizadoSupervisionado('BBDC4')
+    fechamentos,riqueza = aprendizadoSupervisionado('BBDC4', True)
     plt.figure(figsize=(12, 6))
     plt.plot(fechamentos, label='Fechamento', marker='')
     plt.plot(riqueza, label='Riqueza', marker='')
