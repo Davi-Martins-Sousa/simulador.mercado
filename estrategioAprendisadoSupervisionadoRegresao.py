@@ -1,13 +1,14 @@
 import pandas as pd
-import talib
+#import talib
 import os
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.neural_network import MLPRegressor
 from estrategia import create,start,finish,compra,venda
 
 def update(capital,posicao,precoHoje,decisao,ultimoDia):
     if ultimoDia == False :
-        if decisao == 1:
+        if decisao > 0:
             capital, posicao = compra(capital, posicao, precoHoje, 1)
         else:
             capital, posicao = venda(capital, posicao, precoHoje, 1)
@@ -20,9 +21,9 @@ def update(capital,posicao,precoHoje,decisao,ultimoDia):
 
 def aprendizadoSupervisionado(base_path, ano_inicio = '1/3/2022', janela = False, tamanho_janela = 22):
 
-    if os.path.exists('./dados/{}-indicadores.csv----'.format(base_path)):
+    if os.path.exists('./dados/{}-indicadores.csv'.format(base_path)):
         base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))
-    else:
+    '''else:
         base = pd.read_csv('./dados/{}.csv'.format(base_path))
 
         # Preparar os indicadores técnicos
@@ -68,7 +69,7 @@ def aprendizadoSupervisionado(base_path, ano_inicio = '1/3/2022', janela = False
         base['WMA-32'] = talib.WMA(base['Close'], timeperiod=32)
 
         base.to_csv('./dados/{}-indicadores.csv'.format(base_path), index = False, header=True)
-        base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))
+        base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))'''
 
     # Remover linhas com valores NaN
     base = base.dropna()
@@ -85,13 +86,13 @@ def aprendizadoSupervisionado(base_path, ano_inicio = '1/3/2022', janela = False
 
    # Dividir os dados em treinamento e teste
     X = base.drop(columns=['Date','Open','High','Low','Close','Volume','Alvo','Retorno'])
-    y = base['Alvo']
+    y = base['Retorno']
 
     if(janela == False):
         X_train, X_test = X[base['Date'].dt.date < data_inicio_teste], X[base['Date'].dt.date >= data_inicio_teste]
         y_train, y_test = y[base['Date'].dt.date < data_inicio_teste], y[base['Date'].dt.date >= data_inicio_teste]
 
-        model = RandomForestClassifier(random_state=42)
+        model = MLPRegressor(hidden_layer_sizes=(100, 50), activation='relu', solver='adam', random_state=42)
         model.fit(X_train, y_train)
 
         previsao = model.predict(X_test)
@@ -113,8 +114,8 @@ def aprendizadoSupervisionado(base_path, ano_inicio = '1/3/2022', janela = False
             else: 
                 X_test = X[(base.index >= indice_data_inicio_temp)]
 
-            # Treinar um modelo de classificação (Random Forest)
-            model = RandomForestClassifier(random_state=42)
+            # Treinar um modelo de regresão (MLP)
+            model = MLPRegressor(hidden_layer_sizes=(100, 50), activation='relu', solver='adam', random_state=42)
             model.fit(X_train, y_train)
 
             # Fazer previsões para o dia atual
