@@ -1,5 +1,5 @@
 import pandas as pd
-import talib
+#import talib
 import os
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPRegressor
@@ -24,7 +24,7 @@ def classificação(base_path, ano_inicio = '1/3/2022', janela = False, tamanho_
 
     if os.path.exists('./dados/{}-indicadores.csv'.format(base_path)):
         base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))
-    else:
+    '''else:
         base = pd.read_csv('./dados/{}.csv'.format(base_path))
 
         # Preparar os indicadores técnicos
@@ -102,7 +102,7 @@ def classificação(base_path, ano_inicio = '1/3/2022', janela = False, tamanho_
 
 
         base.to_csv('./dados/{}-indicadores.csv'.format(base_path), index = False, header=True)
-        base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))
+        base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))'''
 
     # Remover linhas com valores NaN
     base = base.dropna()

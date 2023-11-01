@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import talib
+#import talib
 import os
 import math
 from sklearn.neural_network import MLPRegressor
@@ -25,7 +25,7 @@ def regressao(base_path, ano_inicio = '1/3/2022', janela = False, tamanho_janela
 
     if os.path.exists('./dados/{}-indicadores.csv'.format(base_path)):
         base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))
-    else:
+    '''else:
         base = pd.read_csv('./dados/{}.csv'.format(base_path))
 
         # Preparar os indicadores técnicos
@@ -102,7 +102,7 @@ def regressao(base_path, ano_inicio = '1/3/2022', janela = False, tamanho_janela
         base[colunas_para_normalizar] = scaler.fit_transform(base[colunas_para_normalizar])
 
         base.to_csv('./dados/{}-indicadores.csv'.format(base_path), index = False, header=True)
-        base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))
+        base = pd.read_csv('./dados/{}-indicadores.csv'.format(base_path))'''
 
     # Remover linhas com valores NaN
     base = base.dropna()
